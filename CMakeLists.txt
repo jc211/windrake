@@ -15,7 +15,7 @@ find_package(gflags CONFIG REQUIRED)
 include(./drake/common/CMakeLists.txt)
 include(./drake/math/CMakeLists.txt)
 
-add_library(drake SHARED ${COMMON_SRC} ${MATH_SRC})
+add_library(drake ${COMMON_SRC} ${MATH_SRC})
 target_include_directories(drake 
     PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
