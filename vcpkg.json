@@ -1,5 +1,5 @@
 {
-  "name": "windrake",
+  "name": "drake",
   "version-string": "0.24.0",
   "dependencies": [ "fmt", "eigen3", "spdlog", "gflags" ]
 
