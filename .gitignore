@@ -30,3 +30,6 @@
 
 # User-specified configuration
 /user.bazelrc
+
+# Visual studio configuration
+CMakeSettings.json

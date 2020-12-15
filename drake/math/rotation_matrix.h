@@ -7,7 +7,6 @@
 #include <Eigen/Dense>
 #include <fmt/format.h>
 
-#include "drake/common/defines.h"
 #include "drake/common/default_scalars.h"
 #include "drake/common/drake_assert.h"
 #include "drake/common/drake_bool.h"
@@ -48,7 +47,7 @@ namespace math {
 ///
 /// @tparam_default_scalar
 template <typename T>
-DRAKE_API class RotationMatrix {
+class RotationMatrix {
  public:
   DRAKE_DEFAULT_COPY_AND_MOVE_AND_ASSIGN(RotationMatrix)
 
