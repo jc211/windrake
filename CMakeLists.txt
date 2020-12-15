@@ -30,7 +30,7 @@ add_library(drake::drake ALIAS drake)
 
 
 
-install(TARGETS drake EXPORT DrakeTargets)
+install(TARGETS drake EXPORT DrakeTargets LIBRARY)
 install(EXPORT DrakeTargets FILE DrakeTargets.cmake DESTINATION share)
 install(DIRECTORY drake/ DESTINATION include/drake/drake
         FILES_MATCHING PATTERN "*.h")
