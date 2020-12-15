@@ -1,0 +1,259 @@
+cmake_minimum_required(VERSION 3.17)
+project(common CXX)
+
+add_compile_options(/Zc:__cplusplus)
+
+find_package(Eigen3 CONFIG REQUIRED)
+find_package(fmt CONFIG REQUIRED)
+find_package(spdlog CONFIG REQUIRED)
+
+include_directories("${CMAKE_CURRENT_LIST_DIR}/../..")
+
+##==================
+## essential
+##==================
+
+set(ESSENTIAL_SRC 
+    "drake_assert_and_throw.cc"
+    "text_logging.cc"
+)
+
+set(ESSENTIAL_HDRS
+    "constants.h"
+    "drake_assert.h"
+    "drake_assertion_error.h"
+    "drake_copyable.h"
+    "drake_deprecated.h"
+    "drake_throw.h"
+    "eigen_stl_types.h"
+    "eigen_types.h"
+    "never_destroyed.h"
+    "text_logging.h"
+)
+
+add_library(essential 
+        OBJECT
+        ${ESSENTIAL_HDRS}
+        ${ESSENTIAL_SRC}
+)
+
+target_link_libraries(essential 
+    PUBLIC
+    Eigen3::Eigen
+    fmt::fmt
+    spdlog::spdlog
+)
+##==================
+## double
+##==================
+
+set(DOUBLE_HDRS
+    "double_overloads.h"
+)
+set(DOUBLE_SRC 
+    "double_overloads.cc"
+)
+
+add_library(double 
+        OBJECT
+        ${DOUBLE_HDRS}
+        ${DOUBLE_SRC}
+)
+
+##==================
+## cond
+##==================
+
+set(COND_HDRS
+    "cond.h"
+)
+set(COND_SRC 
+    "cond.cc"
+)
+
+add_library(cond 
+        OBJECT
+        ${COND_HDRS}
+        ${COND_SRC}
+)
+
+add_dependencies(cond double)
+
+##==================
+## nice_type_name
+##==================
+
+set(NICE_TYPE_NAME_HDRS
+    "nice_type_name.h"
+)
+set(NICE_TYPE_NAME_SRC 
+    "nice_type_name.cc"
+)
+add_library(nice_type_name 
+        OBJECT
+        ${NICE_TYPE_NAME_HDRS}
+        ${NICE_TYPE_NAME_SRC}
+)
+
+add_dependencies(nice_type_name essential)
+##==================
+## hash
+##==================
+
+set(HASH_HDRS
+    "hash.h"
+)
+set(HASH_SRC 
+    "hash.cc"
+)
+add_library(hash 
+        OBJECT
+        ${HASH_HDRS}
+        ${HASH_SRC}
+)
+set_property(TARGET hash PROPERTY CXX_STANDARD 17)
+
+##==================
+## random
+##==================
+
+set(RANDOM_HDRS
+    "random.h"
+)
+set(RANDOM_SRC 
+    "random.cc"
+)
+add_library(random 
+        OBJECT
+        ${RANDOM_HDRS}
+        ${RANDOM_SRC}
+)
+add_dependencies(random essential)
+
+##==================
+## dummy_value
+##==================
+set(DUMMY_VALUE_HDRS
+    "dummy_value.h"
+)
+set(DUMMY_VALUE_SRC 
+)
+
+#add_library(dummy_value 
+#       OBJECT
+#       ${DUMMY_VALUE_HDRS}
+#       ${DUMMY_VALUE_SRC}
+#       )
+
+
+##==================
+## autodiff
+##==================
+set(AUTODIFF_HDRS
+    "autodiff.h"
+    "autodiff_overloads.h"
+    "autodiffxd.h"
+    "eigen_autodiff_types.h"
+)
+set(AUTODIFF_SRC 
+)
+
+#add_library(dummy_value 
+#        OBJECT
+#        ${DUMMY_VALUE_HDRS}
+#        ${DUMMY_VALUE_SRC}
+#)
+
+
+##==================
+## drake_bool
+##==================
+set(DRAKE_BOOL_HDRS
+    "drake_bool.h"
+)
+set(DRAKE_BOOL_SRC 
+)
+
+#add_library(dummy_value 
+#        OBJECT
+#        ${DUMMY_VALUE_HDRS}
+#        ${DUMMY_VALUE_SRC}
+#)
+
+##==================
+## symbolic
+##==================
+set(SYMBOLIC_HDRS
+    "symbolic.h"
+    "symbolic_chebyshev_basis_element.h"
+    "symbolic_chebyshev_polynomial.h"
+    "symbolic_codegen.h"
+    "symbolic_expression_cell.h"
+    "symbolic_environment.h"
+    "symbolic_expression.h"
+    "symbolic_formula.h"
+    "symbolic_formula_cell.h"
+    "symbolic_expression_visitor.h"
+    "symbolic_formula_visitor.h"
+    "symbolic_generic_polynomial.h"
+    "symbolic_ldlt.h"
+    "symbolic_monomial.h"
+    "symbolic_monomial_basis_element.h"
+    "symbolic_monomial_util.h"
+    "symbolic_polynomial.h"
+    "symbolic_polynomial_basis.h"
+    "symbolic_rational_function.h"
+    "symbolic_simplification.h"
+    "symbolic_polynomial_basis_element.h"
+    "symbolic_variable.h"
+    "symbolic_variables.h"
+)
+set(SYMBOLIC_SRC 
+    "symbolic.cc"
+    "symbolic_chebyshev_basis_element.cc"
+    "symbolic_chebyshev_polynomial.cc"
+    "symbolic_codegen.cc"
+    "symbolic_environment.cc"
+    "symbolic_expression.cc"
+    "symbolic_expression_cell.cc"
+    "symbolic_formula.cc"
+    "symbolic_formula_cell.cc"
+    "symbolic_generic_polynomial.cc"
+    "symbolic_ldlt.cc"
+    "symbolic_monomial.cc"
+    "symbolic_monomial_basis_element.cc"
+    "symbolic_monomial_util.cc"
+    "symbolic_polynomial.cc"
+    "symbolic_polynomial_basis_element.cc"
+    "symbolic_rational_function.cc"
+    "symbolic_simplification.cc"
+    "symbolic_variable.cc"
+    "symbolic_variables.cc"
+)
+
+add_library(symbolic 
+        OBJECT
+        ${SYMBOLIC_HDRS}
+        ${SYMBOLIC_SRC}
+)
+target_link_libraries(symbolic fmt::fmt Eigen3::Eigen)
+set_property(TARGET symbolic PROPERTY CXX_STANDARD 17)
+
+
+#==================
+# polynomial
+#==================
+set(POLYNOMIAL_HDRS
+    "polynomial.h"
+)
+set(POLYNOMIAL_SRC 
+    "polynomial.cc"
+)
+
+add_library(polynomial 
+        OBJECT
+        ${POLYNOMIAL_HDRS}
+        ${POLYNOMIAL_SRC}
+)
+target_link_libraries(polynomial fmt::fmt Eigen3::Eigen)
+set_property(TARGET polynomial PROPERTY CXX_STANDARD 17)

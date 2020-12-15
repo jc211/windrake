@@ -1,0 +1,9 @@
+set(TRAJECTORY_SRC
+	"${CMAKE_CURRENT_LIST_DIR}/bspline_trajectory.cc"
+	"${CMAKE_CURRENT_LIST_DIR}/discrete_time_trajectory.cc"
+	"${CMAKE_CURRENT_LIST_DIR}/exponential_plus_piecewise_polynomial.cc"
+	"${CMAKE_CURRENT_LIST_DIR}/piecewise_polynomial.cc"
+	"${CMAKE_CURRENT_LIST_DIR}/piecewise_quaternion.cc"
+	"${CMAKE_CURRENT_LIST_DIR}/piecewise_trajectory.cc"
+	"${CMAKE_CURRENT_LIST_DIR}/trajectory.cc"
+)
